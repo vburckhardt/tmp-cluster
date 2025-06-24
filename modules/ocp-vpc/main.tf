@@ -1,0 +1,117 @@
+########################################################################################################################
+# VPC
+########################################################################################################################
+
+module "vpc" {
+  source            = "terraform-ibm-modules/landing-zone-vpc/ibm"
+  version           = "7.23.5"
+  resource_group_id = var.resource_group_id
+  region            = var.region
+  prefix            = var.prefix
+  tags              = []
+  name              = "${var.prefix}-vpc"
+  address_prefixes = {
+    zone-1 = ["10.10.10.0/24"]
+    zone-2 = ["10.20.10.0/24"]
+  }
+  clean_default_sg_acl = true
+  network_acls = [
+    {
+      name                         = "vpc-acl"
+      add_ibm_cloud_internal_rules = true
+      add_vpc_connectivity_rules   = true
+      prepend_ibm_rules            = true
+      rules = [
+        {
+          name        = "allow-all-inbound"
+          action      = "allow"
+          direction   = "inbound"
+          source      = "0.0.0.0/0"
+          destination = "0.0.0.0/0"
+        },
+        {
+          name        = "allow-all-outbound"
+          action      = "allow"
+          direction   = "outbound"
+          source      = "0.0.0.0/0"
+          destination = "0.0.0.0/0"
+        }
+      ]
+    }
+  ]
+  enable_vpc_flow_logs                   = false
+  create_authorization_policy_vpc_to_cos = false
+  #existing_storage_bucket_name           = module.flowlogs_bucket.bucket_configs[0].bucket_name
+  security_group_rules = []
+  #existing_cos_instance_guid             = module.cos_fscloud.cos_instance_guid
+  subnets = {
+    zone-1 = [
+      {
+        acl_name       = "vpc-acl"
+        name           = "zone-1"
+        cidr           = "10.10.10.0/24"
+        public_gateway = true
+      }
+    ],
+    zone-2 = [
+      {
+        acl_name       = "vpc-acl"
+        name           = "zone-2"
+        cidr           = "10.20.10.0/24"
+        public_gateway = true
+      }
+    ]
+  }
+  use_public_gateways = {
+    zone-1 = true
+    zone-2 = true
+    zone-3 = false
+  }
+}
+
+########################################################################################################################
+# OCP VPC Cluster
+########################################################################################################################
+
+locals {
+  cluster_vpc_subnets = {
+    default = [
+      for subnet in module.vpc.subnet_zone_list :
+      {
+        id         = subnet.id
+        zone       = subnet.zone
+        cidr_block = subnet.cidr
+      }
+    ]
+  }
+
+  worker_pools = [
+    {
+      subnet_prefix     = "default"
+      pool_name         = "default"  # ibm_container_vpc_cluster automatically names default pool "default" (See https://github.com/IBM-Cloud/terraform-provider-ibm/issues/2849)
+      machine_type      = "bx2.4x16" # smallest machine type available in VPC
+      workers_per_zone  = 1
+      operating_system  = "RHCOS"
+      labels            = {}
+      resource_group_id = var.resource_group_id
+    }
+  ]
+}
+
+module "openshift" {
+  source               = "terraform-ibm-modules/base-ocp-vpc/ibm"
+  version              = "3.46.15"
+  cluster_name         = var.prefix
+  resource_group_id    = var.resource_group_id
+  region               = var.region
+  force_delete_storage = true
+  vpc_id               = module.vpc.vpc_id
+  vpc_subnets          = local.cluster_vpc_subnets
+  worker_pools         = local.worker_pools
+  tags                 = var.resource_tags
+  access_tags          = var.access_tags
+  ocp_version          = var.ocp_version
+  use_private_endpoint = false
+  ocp_entitlement      = var.ocp_entitlement
+  enable_ocp_console   = true
+}

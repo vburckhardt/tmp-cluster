@@ -2,10 +2,16 @@
 # Input Variables
 ########################################################################################################################
 
-variable "ibmcloud_api_key" {
+# variable "ibmcloud_api_key" {
+#   type        = string
+#   description = "The IBM Cloud api key"
+#   sensitive   = true
+# }
+
+variable "resource_group_id" {
   type        = string
-  description = "The IBM Cloud api key"
-  sensitive   = true
+  description = "The Resource Group ID to use for all resources created in this solution (VPC and cluster)"
+  default     = null
 }
 
 variable "prefix" {
@@ -15,17 +21,13 @@ variable "prefix" {
     error_message = "Prefix must begin and end with a letter and contain only letters, numbers, and - characters."
     condition     = can(regex("^([A-z]|[a-z][-a-z0-9]*[a-z0-9])$", var.prefix))
   }
+  default = "tfe"
 }
 
 variable "region" {
   type        = string
   description = "Region where resources are created"
-}
-
-variable "resource_group" {
-  type        = string
-  description = "An existing resource group name to use for this example, if unset a new resource group will be created"
-  default     = null
+  default     = "eu-es"
 }
 
 variable "resource_tags" {
@@ -34,24 +36,20 @@ variable "resource_tags" {
   default     = []
 }
 
-variable "tfe_license" {
-  type        = string
-  description = "The license key for TFE"
-  sensitive   = true
+variable "access_tags" {
+  type        = list(string)
+  description = "A list of access tags to apply to the resources created by the module"
+  default     = []
 }
 
-variable "admin_username" {
-  description = "The user name of the TFE admin user"
+variable "ocp_version" {
   type        = string
+  description = "Version of the OCP cluster to provision"
+  default     = null
 }
 
-variable "admin_email" {
-  description = "The email address of the TFE admin user"
+variable "ocp_entitlement" {
   type        = string
-}
-
-variable "admin_password" {
-  description = "The password for the TFE admin user"
-  type        = string
-  sensitive   = true
+  description = "Value that is applied to the entitlements for OCP cluster provisioning"
+  default     = null
 }
