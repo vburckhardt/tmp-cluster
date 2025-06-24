@@ -114,4 +114,5 @@ module "openshift" {
   use_private_endpoint = false
   ocp_entitlement      = var.ocp_entitlement
   enable_ocp_console   = true
+  disable_outbound_traffic_protection = true
 }
