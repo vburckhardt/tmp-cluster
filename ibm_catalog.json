@@ -15,7 +15,7 @@
             "short_description": "Demo for a deployable architecture that installs Terraform Enterprise and its requisite components.",
             "long_description": "",
             "provider_name": "Community",
-            "offering_docs_url": "https://github.com/alex-reiff/terraform-ibm-ocp-terraform-enterprise",
+            "offering_docs_url": "https://github.com/alex-reiff/terraform-ibm-ocp-terraform-enterprise/blob/main/README.md",
             "offering_icon_url": "https://cdn.worldvectorlogo.com/logos/terraform-enterprise.svg",
             "features": [
                 {
@@ -137,6 +137,9 @@
                             "key": "resource_tags"
                         },
                         {
+                            "key": "access_tags"
+                        },
+                        {
                             "key": "tfe_license",
                             "required": true
                         },
@@ -153,6 +156,42 @@
                         {
                             "key": "admin_password",
                             "required": true
+                        },
+                        {
+                            "key": "tfe_namespace"
+                        },
+                        {
+                            "key": "existing_cos_instance_id"
+                        },
+                        {
+                            "key": "cos_instance_name"
+                        },
+                        {
+                            "key": "cos_bucket_name"
+                        },
+                        {
+                            "key": "cos_retention"
+                        },
+                        {
+                            "key": "postgres_instance_name"
+                        },
+                        {
+                            "key": "redis_host_name"
+                        },
+                        {
+                            "key": "redis_password_base64"
+                        },
+                        {
+                            "key": "existing_vpc_id"
+                        },
+                        {
+                            "key": "existing_cluster_crn"
+                        },
+                        {
+                            "key": "ocp_version"
+                        },
+                        {
+                            "key": "ocp_entitlement"
                         }
                     ],
                     "terraform_version": "",

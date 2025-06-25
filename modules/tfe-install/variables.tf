@@ -15,7 +15,7 @@ variable "cluster_resource_group_id" {
 variable "namespace" {
   description = "The namespace to deploy TFE to. This namespace will be created if it does not exist."
   type        = string
-  default     = "tfe"
+  default     = "tfe-dev"
 }
 
 variable "tfe_license" {
