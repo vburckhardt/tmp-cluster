@@ -2,14 +2,35 @@
 # Outputs
 ########################################################################################################################
 
-# output "cluster_name" {
-#   value       = module.ocp_fscloud.cluster_name
-#   description = "The name of the provisioned cluster."
-# }
+output "cos_instance_id" {
+  value       = module.cos.cos_instance_id
+  description = "The name of the provisioned cos instance."
+}
+
+output "cluster_id" {
+  value       = module.ocp_vpc.cluster_id
+  description = "The name of the provisioned cluster."
+}
+
+output "postgres_crn" {
+  value       = module.icd_postgres.crn
+  description = "The crm of the provisioned postgres instance."
+}
+
+output "redis_host" {
+  value       = module.redis.redis_host
+  description = "The name of the provisioned redis host."
+}
+
+output "redis_password" {
+  value       = module.redis.password_base64
+  description = "password to redis instance"
+  sensitive   = true
+}
 
 output "tfe_console_url" {
   value       = module.tfe_install.tfe_console_url
-  description = "The URL to access the TFE console"
+  description = "url to access TFE."
 }
 
 output "tfe_hostname" {
