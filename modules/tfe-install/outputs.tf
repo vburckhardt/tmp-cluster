@@ -17,10 +17,10 @@ output "tfe_installation_status" {
 
 output "tfe_console_url" {
   description = "The URL to access the TFE console"
-  value       = "https://${yamldecode(kubectl_manifest.tfe_route.yaml_incluster)["spec"]["host"]}"
+  value       = "https://${data.kubernetes_resource.tfe_route.object.status.ingress[0].host}"
 }
 
 output "tfe_hostname" {
   description = "The hostname for TFE instance"
-  value       = yamldecode(kubectl_manifest.tfe_route.yaml_incluster)["spec"]["host"]
+  value       = data.kubernetes_resource.tfe_route.object.status.ingress[0].host
 }

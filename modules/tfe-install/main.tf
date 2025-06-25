@@ -433,3 +433,13 @@ data "kubernetes_resource" "tfe_agent_image_stream" {
     namespace = kubernetes_namespace.tfe.metadata[0].name
   }
 }
+
+data "kubernetes_resource" "tfe_route" {
+  depends_on  = [kubectl_manifest.tfe_route]
+  api_version = "route.openshift.io/v1"
+  kind        = "Route"
+  metadata {
+    name      = local.route_name
+    namespace = kubernetes_namespace.tfe.metadata[0].name
+  }
+}

@@ -12,5 +12,13 @@ terraform {
       source  = "gavinbunney/kubectl"
       version = ">= 1.19.0, <2.0.0"
     }
+    kubernetes = {
+      source  = "hashicorp/kubernetes"
+      version = ">= 2.0.0, <4.0.0"
+    }
+    helm = {
+      source  = "hashicorp/helm"
+      version = ">= 2.15.0, <3.0.0"
+    }
   }
 }

@@ -2,6 +2,7 @@
 
 # Exit on any error
 set -e
+set -x
 
 TFE_HOSTNAME=$1
 IACT_TOKEN=$2
@@ -19,7 +20,7 @@ PAYLOAD=$(cat <<EOF
 EOF
 )
 
-MAX_RETRIES=3
+MAX_RETRIES=30
 RETRY_INTERVAL=20
 ATTEMPT=1
 
