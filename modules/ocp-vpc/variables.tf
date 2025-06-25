@@ -53,3 +53,15 @@ variable "ocp_entitlement" {
   description = "Value that is applied to the entitlements for OCP cluster provisioning"
   default     = null
 }
+
+variable "existing_vpc_id" {
+  description = "The ID of the existing vpc. If not set, a new VPC will be created."
+  type        = string
+  default     = null
+}
+
+variable "existing_cluster_id" {
+  description = "The CRN of the existing cluster. If not set, a new cluster will be created."
+  type        = string
+  default     = null
+}
