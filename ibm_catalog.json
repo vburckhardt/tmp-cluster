@@ -57,8 +57,8 @@
                     "architecture": {
                         "features": [
                             {
-                                "title": " ",
-                                "description": "TODO Configured to use IBM secure by default standards, but can be edited to fit your use case."
+                                "title": "Terraform Enterprise Full Stack Installation",
+                                "description": "Configured to use IBM secure by default standards, but can be edited to fit your use case."
                             }
                         ],
                         "diagrams": [
@@ -68,7 +68,7 @@
                                     "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-secrets-manager/main/reference-architecture/secrets_manager.svg",
                                     "type": "image/svg+xml"
                                 },
-                                "description": "TODO This architecture supports creating and configuring a Secrets Manager instance and optional security, logging and notification services."
+                                "description": "TODO This architecture supports creating and configuring a Terraform Enterprise install on your cluster and the necessary Openshift cluster, PostGres instance, Redis instance, and Cloud Object Storage instance if needed."
                             }
                         ]
                     },
@@ -81,7 +81,7 @@
                         {
                             "key": "prefix",
                             "required": true,
-                            "default": "tfe-da-demo"
+                            "default": "tfe"
                         },
                         {
                             "key": "region",

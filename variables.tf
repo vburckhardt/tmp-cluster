@@ -69,7 +69,7 @@ variable "admin_password" {
 variable "tfe_namespace" {
   description = "namespace to place TFE in on cluster"
   type        = string
-  default     = "tfe-dev"
+  default     = "tfe"
 }
 
 ##############################################################################
