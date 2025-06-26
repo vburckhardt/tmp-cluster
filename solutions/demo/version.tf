@@ -6,7 +6,7 @@ terraform {
   required_providers {
     ibm = {
       source  = "ibm-cloud/ibm"
-      version = "1.77.0" # encountering a plugin panic at 1.79.2
+      version = "1.79.2"
     }
     kubectl = {
       source  = "gavinbunney/kubectl"
