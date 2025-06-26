@@ -53,7 +53,105 @@
                     "name": "demo",
                     "working_directory": "solutions/demo",
                     "compliance": {},
-                    "iam_permissions": [],
+                    "iam_permissions": [
+                        {
+                            "service_name": "containers-kubernetes",
+                            "role_crns": [
+                                "crn:v1:bluemix:public:iam::::serviceRole:Manager",
+                                "crn:v1:bluemix:public:iam::::role:Editor"
+                            ],
+                            "notes": "Required to create and edit OpenShift cluster and the related resources."
+                        },
+                        {
+                            "service_name": "iam-identity",
+                            "role_crns": [
+                                "crn:v1:bluemix:public:iam::::role:Administrator",
+                                "crn:v1:bluemix:public:iam-identity::::serviceRole:UserApiKeyCreator"
+                            ],
+                            "notes": "Required to create the containers-kubernetes-key needed by the OpenShift cluster on IBM Cloud."
+                        },
+                        {
+                            "service_name": "is.vpc",
+                            "role_crns": [
+                                "crn:v1:bluemix:public:iam::::role:Administrator"
+                            ],
+                            "notes": "Required for creating Virtual Private Cloud(VPC)."
+                        },
+                        {
+                            "service_name": "cloud-object-storage",
+                            "role_crns": [
+                                "crn:v1:bluemix:public:iam::::serviceRole:Manager",
+                                "crn:v1:bluemix:public:iam::::role:Editor"
+                            ],
+                            "notes": "Required to create Cloud Object Storage (COS) Instance."
+                        },
+                        {
+                            "service_name": "all-account-management-services",
+                            "role_crns": [
+                                "crn:v1:bluemix:public:iam::::role:Administrator"
+                            ]
+                        },
+                        {
+                            "service_name": "databases-for-postgresql",
+                            "role_crns": [
+                                "crn:v1:bluemix:public:iam::::role:Editor"
+                            ]
+                        },
+                        {
+                            "role_crns": [
+                                "crn:v1:bluemix:public:iam::::serviceRole:Manager",
+                                "crn:v1:bluemix:public:iam::::role:Editor"
+                            ],
+                            "service_name": "kms"
+                        },
+                        {
+                            "service_name": "hs-crypto",
+                            "role_crns": [
+                                "crn:v1:bluemix:public:iam::::serviceRole:Manager",
+                                "crn:v1:bluemix:public:iam::::role:Editor"
+                            ],
+                            "notes": "[Optional] Required if KMS encryption is enabled and IBM Hyper Protect Crypto Services is used to encrypt the Kubernetes Secrets and Object Storage bucket."
+                        },
+                        {
+                            "service_name": "sysdig-monitor",
+                            "role_crns": [
+                                "crn:v1:bluemix:public:iam::::serviceRole:Manager",
+                                "crn:v1:bluemix:public:iam::::role:Editor"
+                            ],
+                            "notes": "[Optional] Required if you are consuming Observability deployable architecture which sets up Cloud monitoring."
+                        },
+                        {
+                            "service_name": "logs",
+                            "role_crns": [
+                                "crn:v1:bluemix:public:iam::::serviceRole:Manager",
+                                "crn:v1:bluemix:public:iam::::role:Editor"
+                            ],
+                            "notes": "[Optional] Required if you are consuming Observability deployable architecture which sets up Cloud logs."
+                        },
+                        {
+                            "service_name": "logs-router",
+                            "role_crns": [
+                                "crn:v1:bluemix:public:iam::::serviceRole:Manager"
+                            ],
+                            "notes": "[Optional] Required if you are consuming Observability deployable architecture which sets up Logs Routing."
+                        },
+                        {
+                            "service_name": "atracker",
+                            "role_crns": [
+                                "crn:v1:bluemix:public:iam::::serviceRole:Writer",
+                                "crn:v1:bluemix:public:iam::::role:Editor"
+                            ],
+                            "notes": "[Optional] Required if you are consuming Observability deployable architecture which sets up Activity Tracker Event Routing."
+                        },
+                        {
+                            "service_name": "secrets-manager",
+                            "role_crns": [
+                                "crn:v1:bluemix:public:iam::::role:Administrator",
+                                "crn:v1:bluemix:public:iam::::serviceRole:Manager"
+                            ],
+                            "notes": "[Optional] Required for creating an Secrets Manager instance. 'Manager' access required to create new secret groups."
+                        }
+                    ],
                     "architecture": {
                         "features": [
                             {
@@ -64,11 +162,11 @@
                         "diagrams": [
                             {
                                 "diagram": {
-                                    "caption": "TODO TFE and surround services.",
+                                    "caption": "Terraform Enterprise installation and its surrounding components.",
                                     "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-secrets-manager/main/reference-architecture/secrets_manager.svg",
                                     "type": "image/svg+xml"
                                 },
-                                "description": "TODO This architecture supports creating and configuring a Terraform Enterprise install on your cluster and the necessary Openshift cluster, PostGres instance, Redis instance, and Cloud Object Storage instance if needed."
+                                "description": "(TODO DIAGRAM) This architecture supports creating and configuring a Terraform Enterprise installation on your cluster and the necessary Openshift cluster, PostGres instance, Redis instance, and Cloud Object Storage instance if needed."
                             }
                         ]
                     },
