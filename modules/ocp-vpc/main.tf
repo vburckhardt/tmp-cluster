@@ -7,9 +7,11 @@ module "vpc" {
   version           = "7.23.5"
   resource_group_id = var.resource_group_id
   region            = var.region
+  create_vpc        = var.existing_vpc_id == null ? true : false
+  existing_vpc_id   = var.existing_vpc_id
   prefix            = var.prefix
-  tags              = []
   name              = "${var.prefix}-vpc"
+  tags              = []
   address_prefixes = {
     zone-1 = ["10.10.10.0/24"]
     zone-2 = ["10.20.10.0/24"]
@@ -99,20 +101,33 @@ locals {
 }
 
 module "openshift" {
-  source               = "terraform-ibm-modules/base-ocp-vpc/ibm"
-  version              = "3.46.15"
-  cluster_name         = var.prefix
-  resource_group_id    = var.resource_group_id
-  region               = var.region
-  force_delete_storage = true
-  vpc_id               = module.vpc.vpc_id
-  vpc_subnets          = local.cluster_vpc_subnets
-  worker_pools         = local.worker_pools
-  tags                 = var.resource_tags
-  access_tags          = var.access_tags
-  ocp_version          = var.ocp_version
-  use_private_endpoint = false
-  ocp_entitlement      = var.ocp_entitlement
-  enable_ocp_console   = true
+  count                               = var.existing_cluster_id == null ? 1 : 0
+  source                              = "terraform-ibm-modules/base-ocp-vpc/ibm"
+  version                             = "3.46.15"
+  cluster_name                        = var.prefix
+  resource_group_id                   = var.resource_group_id
+  region                              = var.region
+  force_delete_storage                = true
+  vpc_id                              = module.vpc.vpc_id
+  vpc_subnets                         = local.cluster_vpc_subnets
+  worker_pools                        = local.worker_pools
+  tags                                = var.resource_tags
+  access_tags                         = var.access_tags
+  ocp_version                         = var.ocp_version
+  use_private_endpoint                = false
+  ocp_entitlement                     = var.ocp_entitlement
+  enable_ocp_console                  = true
   disable_outbound_traffic_protection = true
+}
+
+data "ibm_container_vpc_cluster" "cluster" {
+  count             = var.existing_cluster_id != null ? 1 : 0
+  name              = var.existing_cluster_id
+  resource_group_id = var.resource_group_id
+}
+
+locals {
+  cluster_name     = var.existing_cluster_id != null ? data.ibm_container_vpc_cluster.cluster[0].name : module.openshift[0].cluster_name
+  cluster_id       = var.existing_cluster_id != null ? data.ibm_container_vpc_cluster.cluster[0].id : module.openshift[0].cluster_id
+  ingress_hostname = var.existing_cluster_id != null ? data.ibm_container_vpc_cluster.cluster[0].ingress_hostname : module.openshift[0].ingress_hostname
 }
