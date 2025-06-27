@@ -19,8 +19,8 @@
                 "tfe"
             ],
             "short_description": "Automate HashiCorp Terraform Enterprise deployment with supporting IBM Cloud  services.",
-            "long_description": "Automated IBM Cloud Infrastructure Deployment for Terraform Enterprise (TFE)\n\nThis solution provides a fully automated, production-ready deployment of Terraform Enterprise (TFE) on IBM Cloud using Terraform modules. Designed for scalability, security, and ease of use, it provisions all necessary cloud resources—including VPC, Cloud Object Storage, PostgreSQL, and Redis—within a managed and customizable infrastructure.\n\nIdeal for: DevOps teams, cloud architects, and platform engineers looking to streamline Terraform Enterprise setup on IBM Cloud with infrastructure-as-code best practices.",
-            "offering_docs_url": "https://github.com/alex-reiff/terraform-ibm-ocp-terraform-enterprise/blob/main/README.md",
+            "long_description": "This solution provides a fully automated, production-ready deployment of Terraform Enterprise (TFE) on IBM Cloud using Terraform modules. Designed for scalability, security, and ease of use, it provisions all necessary cloud resources—including VPC, Cloud Object Storage, PostgreSQL, and Redis—within a managed and customizable infrastructure.\n\nIdeal for: DevOps teams, cloud architects, and platform engineers looking to streamline Terraform Enterprise setup on IBM Cloud with infrastructure-as-code best practices.",
+            "offering_docs_url": "https://github.com/vburckhardt/terraform-ibm-ocp-terraform-enterprise/blob/main/README.md",
             "offering_icon_url": "https://cdn.worldvectorlogo.com/logos/terraform-enterprise.svg",
             "features": [
                 {
