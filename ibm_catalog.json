@@ -1,58 +1,72 @@
 {
     "products": [
         {
-            "label": "Terraform Enterprise Fullstack Demo",
+            "label": "Terraform Enterprise on IBM Cloud",
             "name": "terraform-enterprise-fullstack-demo",
             "product_kind": "solution",
             "tags": [
-                "compute",
-                "Technology"
+                "enterprise_app",
+                "ibm_created",
+                "ibm_beta",
+                "compliance_management",
+                "security_resiliency",
+                "application_modernization",
+                "Technology",
+                "SoftwareAndPlatformApplications"
             ],
             "keywords": [
                 "terraform",
                 "tfe"
             ],
-            "short_description": "Demo for a deployable architecture that installs Terraform Enterprise and its requisite components.",
-            "long_description": "",
-            "provider_name": "Community",
+            "short_description": "Automate HashiCorp Terraform Enterprise deployment with supporting IBM Cloud  services.",
+            "long_description": "Automated IBM Cloud Infrastructure Deployment for Terraform Enterprise (TFE)\n\nThis solution provides a fully automated, production-ready deployment of Terraform Enterprise (TFE) on IBM Cloud using Terraform modules. Designed for scalability, security, and ease of use, it provisions all necessary cloud resources—including VPC, Cloud Object Storage, PostgreSQL, and Redis—within a managed and customizable infrastructure.\n\nIdeal for: DevOps teams, cloud architects, and platform engineers looking to streamline Terraform Enterprise setup on IBM Cloud with infrastructure-as-code best practices.",
             "offering_docs_url": "https://github.com/alex-reiff/terraform-ibm-ocp-terraform-enterprise/blob/main/README.md",
             "offering_icon_url": "https://cdn.worldvectorlogo.com/logos/terraform-enterprise.svg",
             "features": [
                 {
-                    "title": "Creates a resource group",
-                    "description": ""
+                    "title": "End-to-End Automation",
+                    "description": "Deploys a complete TFE environment with minimal manual input."
                 },
                 {
-                    "title": "Creates a cloud object storage",
-                    "description": ""
+                    "title": "Cloud Object Storage Integration",
+                    "description": "Automatically creates and configures a COS instance and bucket for TFE state storage."
                 },
                 {
-                    "title": "Creates a VPC",
-                    "description": ""
+                    "title": "Secure PostgreSQL Backend",
+                    "description": "Provisions a managed PostgreSQL instance with service credentials for TFE."
                 },
                 {
-                    "title": "Creates an openshift cluster on VPC",
-                    "description": ""
+                    "title": "Redis Caching Layer",
+                    "description": "Deploys Redis for TFE session and queue management."
                 },
                 {
-                    "title": "Creates a postgres instance",
-                    "description": ""
+                    "title": "OpenShift VPC Integration",
+                    "description": "Sets up a VPC tailored for OpenShift clusters, supporting TFE deployment."
                 },
                 {
-                    "title": "Creates a redis instance",
-                    "description": ""
+                    "title": "Customizable and Reusable",
+                    "description": "Supports existing resource reuse and environment-specific configurations (e.g., dev, stage, prod)."
                 },
                 {
-                    "title": "Installs terraform instance on a cluster",
-                    "description": ""
+                    "title": "Security and Compliance Ready",
+                    "description": "Includes options for data retention and access tagging."
                 }
             ],
             "flavors": [
                 {
-                    "label": "Demo",
-                    "name": "demo",
+                    "label": "Click & Go",
+                    "name": "quick-start",
                     "working_directory": "solutions/demo",
-                    "compliance": {},
+                    "licenses": [],
+                    "compliance": {
+                        "authority": "scc-v3",
+                        "profiles": [
+                            {
+                                "profile_name": "CIS IBM Cloud Foundations Benchmark v1.1.0",
+                                "profile_version": "1.1.0"
+                            }
+                        ]
+                    },
                     "iam_permissions": [
                         {
                             "service_name": "containers-kubernetes",
@@ -98,11 +112,11 @@
                             ]
                         },
                         {
+                            "service_name": "kms",
                             "role_crns": [
                                 "crn:v1:bluemix:public:iam::::serviceRole:Manager",
                                 "crn:v1:bluemix:public:iam::::role:Editor"
-                            ],
-                            "service_name": "kms"
+                            ]
                         },
                         {
                             "service_name": "hs-crypto",
@@ -142,28 +156,36 @@
                                 "crn:v1:bluemix:public:iam::::role:Editor"
                             ],
                             "notes": "[Optional] Required if you are consuming Observability deployable architecture which sets up Activity Tracker Event Routing."
-                        },
-                        {
-                            "service_name": "secrets-manager",
-                            "role_crns": [
-                                "crn:v1:bluemix:public:iam::::role:Administrator",
-                                "crn:v1:bluemix:public:iam::::serviceRole:Manager"
-                            ],
-                            "notes": "[Optional] Required for creating an Secrets Manager instance. 'Manager' access required to create new secret groups."
                         }
                     ],
                     "architecture": {
                         "features": [
                             {
-                                "title": "Terraform Enterprise Full Stack Installation",
-                                "description": "Configured to use IBM secure by default standards, but can be edited to fit your use case."
+                                "title": "Minimal Inputs Required",
+                                "description": "Just provide a few key values—like region, admin credentials, and a name prefix—and the automation takes care of the rest."
+                            },
+                            {
+                                "title": "Lightweight OpenShift Cluster",
+                                "description": "Deploys a minimally sized OpenShift cluster, optimized for fast provisioning and cost efficiency"
+                            },
+                            {
+                                "title": "Unrestricted Network Configuration",
+                                "description": "Pre-configured with public and private service endpoints, allowing seamless access and integration without complex firewall"
+                            },
+                            {
+                                "title": "Fully Automated Infrastructure Stack",
+                                "description": "Provisions and configures all required components"
+                            },
+                            {
+                                "title": "Secure, Scalable, and IBM Cloud Native",
+                                "description": "Built with IBM-supported Terraform modules, ensuring enterprise-grade reliability, security, and future extensibility."
                             }
                         ],
                         "diagrams": [
                             {
                                 "diagram": {
-                                    "caption": "Terraform Enterprise installation and its surrounding components.",
                                     "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-secrets-manager/main/reference-architecture/secrets_manager.svg",
+                                    "caption": "Terraform Enterprise installation and its surrounding components.",
                                     "type": "image/svg+xml"
                                 },
                                 "description": "(TODO DIAGRAM) This architecture supports creating and configuring a Terraform Enterprise installation on your cluster and the necessary Openshift cluster, PostGres instance, Redis instance, and Cloud Object Storage instance if needed."
@@ -174,17 +196,25 @@
                     "configuration": [
                         {
                             "key": "ibmcloud_api_key",
-                            "required": true
+                            "type": "password",
+                            "description": "The IBM Cloud api key",
+                            "required": true,
+                            "virtual": false
                         },
                         {
                             "key": "prefix",
+                            "type": "string",
+                            "default_value": "tfe",
+                            "description": "Prefix for name of all resource created by this example",
                             "required": true,
-                            "default": "tfe"
+                            "virtual": false
                         },
                         {
                             "key": "region",
+                            "type": "string",
+                            "default_value": "us-south",
+                            "description": "Region where resources are created",
                             "required": true,
-                            "default": "us-south",
                             "options": [
                                 {
                                     "displayname": "Osaka (jp-osa)",
@@ -226,77 +256,90 @@
                                     "displayname": "Sao Paulo (br-sao)",
                                     "value": "br-sao"
                                 }
-                            ]
+                            ],
+                            "virtual": false
                         },
                         {
-                            "key": "resource_group"
-                        },
-                        {
-                            "key": "resource_tags"
-                        },
-                        {
-                            "key": "access_tags"
+                            "key": "resource_tags",
+                            "type": "array",
+                            "default_value": "[]",
+                            "description": "Optional list of tags to be added to created resources",
+                            "required": false,
+                            "virtual": false
                         },
                         {
                             "key": "tfe_license",
-                            "required": true
+                            "type": "password",
+                            "description": "The license key for TFE",
+                            "required": true,
+                            "virtual": false
                         },
                         {
                             "key": "admin_username",
+                            "type": "string",
+                            "default_value": "admin",
+                            "description": "The user name of the TFE admin user",
                             "required": true,
-                            "default": "admin"
+                            "virtual": false
                         },
                         {
                             "key": "admin_email",
+                            "type": "string",
+                            "default_value": "test@example.com",
+                            "description": "The email address of the TFE admin user",
                             "required": true,
-                            "default": "test@example.com"
+                            "virtual": false
                         },
                         {
                             "key": "admin_password",
-                            "required": true
+                            "type": "password",
+                            "description": "The password for the TFE admin user. 10 char minimum",
+                            "required": true,
+                            "virtual": false
                         },
                         {
-                            "key": "tfe_namespace"
-                        },
-                        {
-                            "key": "existing_cos_instance_id"
-                        },
-                        {
-                            "key": "cos_instance_name"
-                        },
-                        {
-                            "key": "cos_bucket_name"
-                        },
-                        {
-                            "key": "cos_retention"
-                        },
-                        {
-                            "key": "postgres_instance_name"
-                        },
-                        {
-                            "key": "redis_host_name"
-                        },
-                        {
-                            "key": "redis_password_base64"
-                        },
-                        {
-                            "key": "existing_vpc_id"
-                        },
-                        {
-                            "key": "existing_cluster_crn"
-                        },
-                        {
-                            "key": "ocp_version"
-                        },
-                        {
-                            "key": "ocp_entitlement"
+                            "key": "existing_resource_group_name",
+                            "type": "string",
+                            "default_value": "__NULL__",
+                            "description": "An existing resource group name to provision resources in, if unset a new resource group will be created using name \"<prefix>-resource-group\"",
+                            "required": false,
+                            "virtual": false
                         }
                     ],
                     "terraform_version": "",
+                    "outputs": [
+                        {
+                            "key": "postgres_crn",
+                            "description": "The crm of the provisioned postgres instance."
+                        },
+                        {
+                            "key": "redis_host",
+                            "description": "The name of the provisioned redis host."
+                        },
+                        {
+                            "key": "redis_password",
+                            "description": "password to redis instance"
+                        },
+                        {
+                            "key": "tfe_console_url",
+                            "description": "url to access TFE."
+                        },
+                        {
+                            "key": "tfe_hostname",
+                            "description": "hostname of TFE"
+                        },
+                        {
+                            "key": "cos_instance_id",
+                            "description": "The name of the provisioned cos instance."
+                        },
+                        {
+                            "key": "cluster_id",
+                            "description": "The name of the provisioned cluster."
+                        }
+                    ],
                     "install_type": "fullstack",
                     "scripts": [],
-                    "change_notices": {},
-                    "dependencies": []
+                    "change_notices": {}
                 }
             ]
         }
