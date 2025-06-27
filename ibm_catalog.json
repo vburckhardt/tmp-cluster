@@ -184,11 +184,11 @@
                         "diagrams": [
                             {
                                 "diagram": {
-                                    "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-secrets-manager/main/reference-architecture/secrets_manager.svg",
+                                    "url": "https://raw.githubusercontent.com/vburckhardt/terraform-ibm-ocp-terraform-enterprise/main/reference-architecture/diagram-quick-start.svg",
                                     "caption": "Terraform Enterprise installation and its surrounding components.",
                                     "type": "image/svg+xml"
                                 },
-                                "description": "(TODO DIAGRAM) This architecture supports creating and configuring a Terraform Enterprise installation on your cluster and the necessary Openshift cluster, PostGres instance, Redis instance, and Cloud Object Storage instance if needed."
+                                "description": "This architecture supports creating and configuring a Terraform Enterprise installation on your cluster and the necessary Openshift cluster, PostGres instance, Redis instance, and Cloud Object Storage instance if needed."
                             }
                         ]
                     },
