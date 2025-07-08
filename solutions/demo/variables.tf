@@ -15,7 +15,7 @@ variable "prefix" {
     error_message = "Prefix must begin and end with a letter and contain only letters, numbers, and - characters."
     condition     = can(regex("^([A-z]|[a-z][-a-z0-9]*[a-z0-9])$", var.prefix))
   }
-  default = "tfe"
+  default = "tfe-alex"
 }
 
 variable "region" {
@@ -26,8 +26,8 @@ variable "region" {
 
 variable "existing_resource_group_name" {
   type        = string
-  description = "	An existing resource group name to provision resources in, if unset a new resource group will be created using name '<prefix>-resource-group'"
-  default     = "null"
+  description = "An existing resource group name to provision resources in, if unset a new resource group will be created"
+  default     = null
 }
 
 variable "resource_tags" {

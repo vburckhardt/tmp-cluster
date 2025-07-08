@@ -41,3 +41,13 @@ provider "tfe" {
   hostname = module.tfe_install.tfe_hostname
   token    = base64encode(module.tfe_install.token)
 }
+data "ibm_iam_auth_token" "auth_token" {}
+
+provider "restapi" {
+  uri = "https://cm.globalcatalog.cloud.ibm.com"
+  headers = {
+    Authorization = data.ibm_iam_auth_token.auth_token.iam_access_token
+  }
+  write_returns_object = true
+}
+
