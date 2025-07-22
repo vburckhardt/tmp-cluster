@@ -62,7 +62,7 @@ module "icd_postgres" {
   version            = "4.1.3"
   resource_group_id  = module.resource_group.resource_group_id
   name               = var.postgres_instance_name != null ? var.postgres_instance_name : "${var.prefix}-data-store"
-  pg_version         = "16" # TFE supports up to Postgres 16 (not 17)
+  postgresql_version = "16" # TFE supports up to Postgres 16 (not 17)
   region             = var.region
   service_endpoints  = "public-and-private"
   member_host_flavor = "multitenant"
@@ -157,7 +157,7 @@ locals {
   data_json = jsonencode(local.data)
 }
 
-resource "restapi_object" "tfe-engines" {
+resource "restapi_object" "tfe_engines" {
   path           = "/api/v1-beta/catalogaccount"
   data           = local.data_json
   create_method  = "PUT" # Specify the HTTP method for updates
