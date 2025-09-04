@@ -21,13 +21,13 @@ variable "prefix" {
     error_message = "Prefix must begin and end with a letter and contain only letters, numbers, and - characters."
     condition     = can(regex("^([A-z]|[a-z][-a-z0-9]*[a-z0-9])$", var.prefix))
   }
-  default = "tfe"
+  default = "txc"
 }
 
 variable "region" {
   type        = string
   description = "Region where resources are created"
-  default     = "eu-es"
+  default     = "us-south"
 }
 
 variable "resource_tags" {
