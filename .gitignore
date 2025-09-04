@@ -73,3 +73,5 @@ terraform.rc
 go.work
 
 **/kubeconfig/*
+
+*.env
