@@ -1,0 +1,16 @@
+apiVersion: operators.coreos.com/v1alpha1
+kind: Subscription
+metadata:
+  name: devspaces
+  namespace: {{ .Values.namespace }}
+  labels:
+    app.kubernetes.io/name: {{ include "devspaces-operators.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+spec:
+  channel: {{ .Values.operators.devspaces.channel }}
+  installPlanApproval: Automatic
+  name: devspaces
+  source: {{ .Values.operators.devspaces.source }}
+  sourceNamespace: {{ .Values.operators.devspaces.sourceNamespace }}
+  startingCSV: {{ .Values.operators.devspaces.startingCSV }}

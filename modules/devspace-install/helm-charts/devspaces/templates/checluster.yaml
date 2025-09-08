@@ -1,0 +1,70 @@
+apiVersion: org.eclipse.che/v2
+kind: CheCluster
+metadata:
+  name: {{ .Values.devspaces.name }}
+  namespace: {{ .Values.namespace }}
+  labels:
+    app.kubernetes.io/name: {{ include "devspaces.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+spec:
+  components:
+    cheServer:
+      debug: false
+      logLevel: INFO
+    dashboard:
+      deployment:
+        containers:
+          - env:
+              - name: CHE_HIDE_EDITORS_BY_ID
+                value: 'che-incubator/che-clion-server/latest,che-incubator/che-idea-server/latest,che-incubator/che-idea/latest,che-incubator/che-pycharm-server/latest,che-incubator/che-rubymine-server/latest,che-incubator/che-webstorm-server/latest'
+      logLevel: ERROR
+    devWorkspace: {}
+    devfileRegistry: {}
+    imagePuller:
+      enable: true
+      spec: {}
+    metrics:
+      enable: true
+    pluginRegistry:
+      openVSXURL: 'https://open-vsx.org'
+  containerRegistry: {}
+  devEnvironments:
+    startTimeoutSeconds: {{ .Values.devEnvironments.startTimeoutSeconds }}
+    security: {}
+    secondsOfRunBeforeIdling: {{ .Values.devEnvironments.secondsOfRunBeforeIdling }}
+    maxNumberOfWorkspacesPerUser: {{ .Values.devEnvironments.maxNumberOfWorkspacesPerUser }}
+    containerBuildConfiguration:
+      openShiftSecurityContextConstraint: container-build
+    ignoredUnrecoverableEvents:
+      - FailedScheduling
+    defaultEditor: che-incubator/che-code/latest
+    allowedSources:
+      urls:
+        {{- range .Values.devEnvironments.allowedSources }}
+        - '{{ . }}'
+        {{- end }}
+    defaultComponents:
+      - container:
+          image: '{{ .Values.customImage.imageRegistry }}:{{ .Values.customImage.tag }}'
+          sourceMapping: /projects
+        name: udi
+    defaultNamespace:
+      autoProvision: true
+      template: {{ .Values.devEnvironments.defaultNamespaceTemplate }}
+    secondsOfInactivityBeforeIdling: {{ .Values.devEnvironments.secondsOfInactivityBeforeIdling }}
+    storage:
+      pvcStrategy: per-user
+  gitServices: {}
+  networking:
+    auth:
+      gateway:
+        configLabels:
+          app: che
+          component: che-gateway-config
+        kubeRbacProxy:
+          logLevel: 0
+        oAuthProxy:
+          cookieExpireSeconds: 86400
+        traefik:
+          logLevel: INFO

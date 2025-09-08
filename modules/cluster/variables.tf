@@ -2,6 +2,12 @@
 # Input Variables
 ########################################################################################################################
 
+# variable "ibmcloud_api_key" {
+#   type        = string
+#   description = "The IBM Cloud api key"
+#   sensitive   = true
+# }
+
 variable "resource_group_id" {
   type        = string
   description = "The Resource Group ID to use for all resources created in this solution (VPC and cluster)"

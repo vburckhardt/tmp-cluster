@@ -1,0 +1,15 @@
+# Default values for devspaces-operators
+namespace: openshift-operators
+
+# Operator subscriptions
+operators:
+  devspaces:
+    channel: stable
+    source: redhat-operators
+    sourceNamespace: openshift-marketplace
+    startingCSV: devspacesoperator.v3.22.0
+  imagePuller:
+    channel: stable
+    source: community-operators
+    sourceNamespace: openshift-marketplace
+    startingCSV: kubernetes-imagepuller-operator.v1.1.0

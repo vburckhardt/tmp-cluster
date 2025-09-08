@@ -1,0 +1,16 @@
+apiVersion: operators.coreos.com/v1alpha1
+kind: Subscription
+metadata:
+  name: kubernetes-imagepuller-operator
+  namespace: {{ .Values.namespace }}
+  labels:
+    app.kubernetes.io/name: {{ include "devspaces-operators.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+spec:
+  channel: {{ .Values.operators.imagePuller.channel }}
+  installPlanApproval: Automatic
+  name: kubernetes-imagepuller-operator
+  source: {{ .Values.operators.imagePuller.source }}
+  sourceNamespace: {{ .Values.operators.imagePuller.sourceNamespace }}
+  startingCSV: {{ .Values.operators.imagePuller.startingCSV }}

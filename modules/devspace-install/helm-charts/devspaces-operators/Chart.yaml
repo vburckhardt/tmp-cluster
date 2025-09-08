@@ -1,0 +1,5 @@
+apiVersion: v2
+name: devspaces-operators
+description: Internal chart for DevSpaces operator subscriptions
+type: application
+version: 0.1.0

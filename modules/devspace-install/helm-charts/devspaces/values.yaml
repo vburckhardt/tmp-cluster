@@ -1,0 +1,47 @@
+# Default values for devspaces
+namespace: openshift-operators
+cluster_id: ""
+
+# DevSpaces configuration
+devspaces:
+  name: devspaces
+  
+# Custom UDI image configuration
+customImage:
+  name: udi-custom
+  tag: latest
+  imageRegistry: ""  # Will be set by Terraform
+
+# VS Code Editor configuration
+vscode:
+  configMapName: vscode-editor-configurations
+  recommendations:
+    - "HashiCorp.terraform"
+    - "redhat.vscode-yaml"
+    - "ms-vscode.json"
+    - "GitLab.gitlab-workflow"
+  trustedExtensions:
+    - "HashiCorp.terraform"
+    - "GitLab.gitlab-workflow"
+    - "redhat.vscode-yaml"
+  branding:
+    windowHeader: "IBM TechXChange"
+    titleBarColor: "#CCA700"
+
+# Image Puller configuration
+imagePuller:
+  name: devspaces-image-puller
+  configMapName: k8s-image-puller
+  deploymentName: kubernetes-image-puller
+  imagePullerImage: quay.io/eclipse/kubernetes-image-puller:next
+  images: "ansible-devspaces-0=ghcr.io/ansible/ansible-devspaces@sha256:f833103c12adf6ecb3cc8245dbc2d852ec5025c8c487d601b96995ea8783fb2f;dotnet-90-1=quay.io/devspaces/dotnet-90@sha256:5cb201f58ebf20d76b7b99e013da46aa6cfe594c5763ab873bcc6436965d7859;idea-rhel9-2=registry.redhat.io/devspaces-tech-preview/idea-rhel9@sha256:ebd6a6bba434e6d55aec8424431bc4d8739d5bb00975a18c62106c0fbafe9d41;jetbrains-ide-rhel9-3=registry.redhat.io/devspaces-tech-preview/jetbrains-ide-rhel9@sha256:c3e4f488af7699e586e700b4cb10d530371dbd4a621cb62f20ffff55586a0422;code-rhel9-4=registry.redhat.io/devspaces/code-rhel9@sha256:e0d94b772b364b41f419e144042766579bd2ef9c1fe5259c0defaff6b5169718;udi-rhel9-5=registry.redhat.io/devspaces/udi-rhel9@sha256:70c36044b43cc30c753d15084b571047f41e06ff5d7000998bef07038e47268e;"
+
+# DevEnvironments configuration
+devEnvironments:
+  startTimeoutSeconds: 180
+  secondsOfRunBeforeIdling: -1
+  maxNumberOfWorkspacesPerUser: 10
+  secondsOfInactivityBeforeIdling: 3600
+  allowedSources:
+    - "https://github.com/vburckhardt/terraform-simple-template"
+  defaultNamespaceTemplate: "<username>-devspaces"

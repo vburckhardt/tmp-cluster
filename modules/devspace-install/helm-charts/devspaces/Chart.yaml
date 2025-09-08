@@ -1,0 +1,5 @@
+apiVersion: v2
+name: devspaces
+description: Internal chart for DevSpaces configuration
+type: application
+version: 0.1.0

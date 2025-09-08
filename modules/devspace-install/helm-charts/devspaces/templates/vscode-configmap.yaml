@@ -1,0 +1,42 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.vscode.configMapName }}
+  namespace: {{ .Values.namespace }}
+  labels:
+    app.kubernetes.io/part-of: che.eclipse.org
+    app.kubernetes.io/name: {{ include "devspaces.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+data:
+  configurations.json: |
+    {
+      "extensions.install-from-vsix-enabled": false
+    }
+  extensions.json: |
+    {
+      "recommendations": [
+        {{- range $index, $ext := .Values.vscode.recommendations }}
+        {{- if $index }},{{ end }}
+        "{{ $ext }}"
+        {{- end }}
+      ]
+    }
+  product.json: |
+    {
+      "trustedExtensionAuthAccess": [
+        {{- range $index, $ext := .Values.vscode.trustedExtensions }}
+        {{- if $index }},{{ end }}
+        "{{ $ext }}"
+        {{- end }}
+      ]
+    }
+  settings.json: |
+    {
+      "window.header": "{{ .Values.vscode.branding.windowHeader }}",
+      "window.commandCenter": true,
+      "workbench.colorCustomizations": {
+        "titleBar.activeBackground": "{{ .Values.vscode.branding.titleBarColor }}",
+        "titleBar.activeForeground": "#ffffff"
+      }
+    }
