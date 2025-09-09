@@ -61,6 +61,9 @@ resource "kubectl_manifest" "udi_custom_build_config" {
           chmod +x $(which ibmcloud) && \
           ibmcloud plugin install -a -f
 
+          RUN mkdir -p /home/user/.bluemix && \
+          chown -R 1001:1001 /home/user/.bluemix
+
           USER 1001  # reset to non-root if required
       strategy:
         type: Docker
