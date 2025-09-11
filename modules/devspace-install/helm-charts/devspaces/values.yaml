@@ -40,7 +40,8 @@ imagePuller:
 devEnvironments:
   startTimeoutSeconds: 180
   secondsOfRunBeforeIdling: -1
-  maxNumberOfWorkspacesPerUser: 10
+  maxNumberOfWorkspacesPerUser: 50
+  maxNumberOfRunningWorkspacesPerUser: 10
   secondsOfInactivityBeforeIdling: 3600
   allowedSources:
     - "https://github.com/vburckhardt/terraform-simple-template"

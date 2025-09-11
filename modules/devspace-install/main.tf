@@ -156,6 +156,10 @@ resource "helm_release" "devspaces" {
     {
       name  = "customImage.imageRegistry"
       value = data.kubernetes_resource.udi_custom_image_stream.object.status.dockerImageRepository
+    },
+    {
+      name  = "devEnvironments.maxNumberOfRunningWorkspacesPerUser"
+      value = 10
     }
   ]
 }

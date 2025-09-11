@@ -33,6 +33,7 @@ spec:
     startTimeoutSeconds: {{ .Values.devEnvironments.startTimeoutSeconds }}
     security: {}
     secondsOfRunBeforeIdling: {{ .Values.devEnvironments.secondsOfRunBeforeIdling }}
+    maxNumberOfRunningWorkspacesPerUser: {{ .Values.devEnvironments.maxNumberOfRunningWorkspacesPerUser }}
     maxNumberOfWorkspacesPerUser: {{ .Values.devEnvironments.maxNumberOfWorkspacesPerUser }}
     containerBuildConfiguration:
       openShiftSecurityContextConstraint: container-build
